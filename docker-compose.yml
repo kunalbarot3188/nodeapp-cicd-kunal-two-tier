@@ -1,0 +1,36 @@
+version: "3"
+services:
+  
+  backend:
+    image: multistagedocker-two-tier:latest3
+    deploy:
+      replicas: 3
+    build:
+      context: .
+      dockerfile: Dockerfile
+        # image: multistagedocker-two-tier:latest
+    ports:
+      - "5000-5002:5000"      
+    environment:
+      MYSQL_HOST: mysql
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: admin
+      MYSQL_DB: testdb
+    depends_on: 
+      - mysql
+
+  mysql:
+    image: mysql:5.7
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: admin
+      MYSQL_DATABASE: testdb
+    volumes:
+      - ./message.sql:/docker-entrypoint-initdb.d/message.sql
+      - mysql-data:/var/lib/mysql
+
+volumes:
+  mysql-data:
