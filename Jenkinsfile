@@ -4,7 +4,7 @@ pipeline {
     stages{
         stage("Code"){
             steps{
-                git url: "https://github.com/LondheShubham153/two-tier-flask-app.git", branch: "jenkins"
+                git url: "https://github.com/kunalbarot3188/nodeapp-cicd-kunal.git/", branch: "main"
             }
         }
         stage("Build & Test"){
@@ -23,7 +23,7 @@ pipeline {
         }
         stage("Deploy"){
             steps{
-                sh "docker-compose down && docker-compose up -d"
+                sh "docker-compose down && docker-compose build && docker-compose up -d"
             }
         }
     }
