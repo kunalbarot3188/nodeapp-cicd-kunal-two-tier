@@ -32,6 +32,8 @@ COPY --from=builder /usr/local/lib/python3.9/site-packages /usr/local/lib/python
 #COPY --from=builder /usr/lib/ /usr/lib/
 COPY --from=builder /usr/lib/x86_64-linux-gnu/libmariadb.so.3 /usr/lib/x86_64-linux-gnu/
 
+EXPOSE 5000
+
 #COPY --from=builder /usr/bin/ /usr/bin/
 
 # Copy only the necessary files from the build stage
